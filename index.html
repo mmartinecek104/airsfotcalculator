@@ -3,152 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Airsoft Calculator | Joule & FPS Ballistics</title>
     
-    <title>Airsoft Calculator | Joule, FPS & Range Ballistics</title>
-    <meta name="description" content="Professional Airsoft Calculator for instant FPS to Joules conversion. Calculate muzzle energy, effective range, and optimize BB weight. Created by MatiDev.">
-    <meta name="keywords" content="Airsoft Calculator, Joule Calculator, FPS to Joules, BB Weight, Ballistics, Airsoft Tool">
-    <meta name="author" content="MatiDev">
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Airsoft Calculator",
-      "description": "Convert FPS to Joules and calculate airsoft ballistics.",
-      "url": "https://matidev-calc.netlify.app/",
-      "applicationCategory": "Tool",
-      "operatingSystem": "All"
-    }
-    </script>
-
+    <meta name="description" content="Professional Airsoft Calculator. Convert FPS to Joules and calculate range. Created by MatiDev.">
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;900&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
     
     <style>
-        :root { --accent: #fff; }
-        body { background-color: #000; color: #fff; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-        .card { background-color: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 2.5rem; }
-        
+        body { background-color: #000; color: #fff; font-family: 'Inter', sans-serif; }
+        .card { background-color: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 2rem; }
         input { 
             background: #fff !important; 
             color: #000 !important; 
             font-family: 'JetBrains Mono'; 
             font-weight: 700; 
-            border-radius: 1.25rem; 
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        input:focus { transform: translateY(-2px); outline: none; box-shadow: 0 10px 30px rgba(255,255,255,0.1); }
-
-        .res-box { 
-            background: #fff; 
-            color: #000; 
-            border-radius: 2rem; 
-            box-shadow: 0 0 40px rgba(255,255,255,0.05);
-        }
-
-        /* Příprava na bannery, pokud bys je přidal k Social Baru */
-        .ad-placeholder { 
-            width: 100%; 
-            min-height: 50px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
-            opacity: 0.3;
-            font-size: 8px;
-            letter-spacing: 3px;
-            margin-bottom: 20px;
+            border-radius: 1rem;
+            text-align: center;
         }
     </style>
 </head>
 <body class="p-6 flex flex-col items-center min-h-screen">
 
-    <header class="max-w-md w-full py-12 text-center">
-        <div class="mb-8 flex justify-center">
-            <div class="w-20 h-20 bg-white flex items-center justify-center rounded-[2rem] shadow-[0_0_30px_rgba(255,255,255,0.1)]">
-                <span class="text-black font-black text-3xl tracking-tighter">AC</span>
+    <header class="max-w-md w-full py-10 text-center">
+        <div class="mb-6 flex justify-center">
+            <div class="w-16 h-16 bg-white flex items-center justify-center rounded-2xl">
+                <span class="text-black font-black text-2xl tracking-tighter">AC</span>
             </div>
         </div>
-        <h1 class="text-5xl font-black italic uppercase tracking-tighter leading-tight">Airsoft Calculator</h1>
-        <p class="text-[9px] tracking-[0.5em] text-zinc-600 font-bold uppercase mt-4 italic">Advanced Ballistics by MatiDev</p>
+        <h1 class="text-4xl font-black uppercase tracking-tighter">Airsoft Calculator</h1>
+        <p class="text-[9px] tracking-[0.4em] text-zinc-600 font-bold uppercase mt-2">MatiDev System</p>
     </header>
 
     <main class="max-w-md w-full space-y-6">
         
-        <section class="card p-8 md:p-10 shadow-2xl">
-            <div class="grid grid-cols-2 gap-6 mb-8">
-                <div class="space-y-2">
-                    <label class="text-[10px] uppercase font-black text-zinc-500 tracking-widest block ml-1">Velocity (FPS)</label>
-                    <input type="number" id="fps" placeholder="0" class="w-full p-5 text-3xl text-center">
+        <section class="card p-8">
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <div>
+                    <label class="text-[10px] uppercase font-bold text-zinc-500 mb-2 block">Velocity (FPS)</label>
+                    <input type="number" id="fps" placeholder="FPS" class="w-full p-4 text-2xl">
                 </div>
-                <div class="space-y-2">
-                    <label class="text-[10px] uppercase font-black text-zinc-500 tracking-widest block ml-1">BB Mass (g)</label>
-                    <input type="number" id="weight" value="0.20" step="0.01" class="w-full p-5 text-3xl text-center">
+                <div>
+                    <label class="text-[10px] uppercase font-bold text-zinc-500 mb-2 block">BB Weight (g)</label>
+                    <input type="number" id="weight" value="0.20" step="0.01" class="w-full p-4 text-2xl">
                 </div>
             </div>
 
-            <div class="res-box p-12 text-center relative overflow-hidden mb-8">
-                <span class="text-[9px] font-black opacity-30 uppercase absolute top-5 left-0 right-0 tracking-[0.4em]">Energy (Joules)</span>
-                <span id="res-joules" class="text-7xl font-black font-mono tracking-tighter italic">0.00J</span>
+            <div class="bg-white text-black p-10 rounded-2xl text-center mb-6">
+                <span class="text-[9px] font-black opacity-30 uppercase block mb-1">Muzzle Energy</span>
+                <span id="res-joules" class="text-6xl font-black font-mono tracking-tighter">0.00J</span>
             </div>
 
             <div class="grid grid-cols-2 gap-4">
-                <div class="bg-zinc-950 p-6 rounded-[1.5rem] text-center border border-zinc-900">
-                    <span id="res-max" class="text-2xl font-bold block mb-1">0m</span>
-                    <span class="text-[8px] text-zinc-600 uppercase font-black tracking-widest">Max Range</span>
+                <div class="bg-zinc-900 p-4 rounded-xl text-center">
+                    <span id="res-max" class="text-xl font-bold block">0m</span>
+                    <span class="text-[8px] text-zinc-600 uppercase font-black">Max Range</span>
                 </div>
-                <div class="bg-zinc-950 p-6 rounded-[1.5rem] text-center border border-zinc-800">
-                    <span id="res-eff" class="text-2xl font-bold block text-zinc-400 mb-1">0m</span>
-                    <span class="text-[8px] text-zinc-600 uppercase font-black tracking-widest">Effective</span>
+                <div class="bg-zinc-900 p-4 rounded-xl text-center">
+                    <span id="res-eff" class="text-xl font-bold block text-zinc-400">0m</span>
+                    <span class="text-[8px] text-zinc-600 uppercase font-black">Effective</span>
                 </div>
             </div>
         </section>
 
-        <article class="card p-8 border-zinc-900 bg-transparent text-zinc-500 text-[11px] leading-relaxed">
-            <h2 class="text-white font-black mb-4 uppercase tracking-widest italic">Why use this Airsoft Calculator?</h2>
-            <p class="mb-4">
-                Understanding your **Airsoft Joule** output is critical for both safety and peak performance. Many fields now enforce strict Joule limits rather than FPS to prevent "Joule Creep". Our **Airsoft Calculator** provides a professional way to measure your muzzle energy accurately.
-            </p>
-            <p>
-                Simply input your muzzle velocity in **FPS** and your **BB weight** (from 0.12g to 0.48g+) to get an instant reading of your kinetic energy. Optimized for airsoft technicians and players alike.
-            </p>
-        </article>
-
         <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=f10603007@gmail.com" 
-           target="_blank"
-           class="block w-full bg-white text-black p-6 rounded-[1.5rem] text-center font-black uppercase text-xs tracking-[0.4em] hover:bg-zinc-200 transition-colors">
-            Support MatiDev
+           class="block w-full bg-white text-black p-4 rounded-xl text-center font-black uppercase text-xs tracking-widest">
+            Support Project
         </a>
-
-        <div class="ad-placeholder uppercase">Advertisement</div>
 
     </main>
 
-    <footer class="mt-20 pb-20 text-center">
-        <p class="text-[9px] uppercase font-bold tracking-[1em] text-zinc-800">MatiDev Systems v8.5</p>
-    </footer>
-
     <script>
-        const fpsIn = document.getElementById('fps'), 
-              weightIn = document.getElementById('weight'), 
-              resJ = document.getElementById('res-joules'), 
-              resM = document.getElementById('res-max'), 
-              resE = document.getElementById('res-eff');
+        const fpsIn = document.getElementById('fps');
+        const weightIn = document.getElementById('weight');
+        const resJ = document.getElementById('res-joules');
+        const resM = document.getElementById('res-max');
+        const resE = document.getElementById('res-eff');
 
-        function calculate() {
-            const fps = parseFloat(fpsIn.value) || 0;
-            const grams = parseFloat(weightIn.value) || 0;
+        function update() {
+            // Získání hodnot přímo při změně
+            const f = parseFloat(fpsIn.value);
+            const w = parseFloat(weightIn.value);
             
-            if (fps > 0 && grams > 0) {
-                const velocityMS = fps * 0.3048;
-                const joules = 0.5 * (grams / 1000) * Math.pow(velocityMS, 2);
+            if (f > 0 && w > 0) {
+                // Převod FPS na m/s
+                const ms = f * 0.3048;
+                // Výpočet Joule: 0.5 * m * v^2 (hmotnost v kg)
+                const j = 0.5 * (w / 1000) * (ms * ms);
                 
-                resJ.innerText = joules.toFixed(2) + "J";
+                resJ.innerText = j.toFixed(2) + "J";
                 
-                const range = Math.sqrt(joules) * 44;
+                // Odhad dostřelu
+                const range = Math.sqrt(j) * 44;
                 resM.innerText = Math.round(range) + "m";
-                resE.innerText = Math.round(range * 0.72) + "m";
-                
-                if (window.navigator.vibrate) window.navigator.vibrate(5);
+                resE.innerText = Math.round(range * 0.7) + "m";
             } else {
                 resJ.innerText = "0.00J";
                 resM.innerText = "0m";
@@ -156,9 +104,12 @@
             }
         }
 
-        [fpsIn, weightIn].forEach(input => {
-            input.addEventListener('input', calculate);
-        });
+        // Event listenery pro okamžitou reakci
+        fpsIn.addEventListener('input', update);
+        weightIn.addEventListener('input', update);
+        
+        // Spustit jednou při načtení pro případ, že tam jsou předvyplněné hodnoty
+        update();
     </script>
 
     </body>

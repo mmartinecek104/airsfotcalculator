@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,9 @@
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4337060753282933" crossorigin="anonymous"></script>
 
-    <meta name="description" content="Profesionální airsoftová kalkulačka MatiDev. Výpočet Joulů, dostřelu a optimalizace váhy BBs.">
+    <meta name="description" content="Professional Airsoft Calculator by MatiDev. Calculate Joules, effective range, and find the perfect BB weight for your AEG, GBB, or Sniper.">
+    <meta name="keywords" content="Airsoft Calculator, Joule Calculator, FPS to Joules, BB Weight Optimizer, Airsoft Range, MatiDev">
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -20,7 +22,6 @@
         .result-value { font-family: var(--font-mono); font-weight: 700; }
         .label-text { color: #666; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 700; }
         .ad-slot { background: #050505; border: 1px dashed #222; min-height: 90px; display: flex; align-items: center; justify-content: center; position: relative; }
-        .ad-slot::before { content: 'AD SPACE'; font-size: 8px; color: #222; letter-spacing: 5px; }
     </style>
 </head>
 <body class="p-4 min-h-screen flex flex-col items-center">
@@ -50,49 +51,49 @@
                     <input type="text" id="fps" placeholder="0" class="w-full p-3 rounded-xl text-xl text-center">
                 </div>
                 <div>
-                    <label class="label-text block mb-1.5">Váha BB (g)</label>
+                    <label class="label-text block mb-1.5">BB Weight (g)</label>
                     <input type="text" id="weight" placeholder="0.20" value="0.20" class="w-full p-3 rounded-xl text-xl text-center">
                 </div>
             </div>
 
             <div class="mb-6">
-                <label class="label-text block mb-1.5">Platforma</label>
+                <label class="label-text block mb-1.5">Weapon Type</label>
                 <select id="gun-type" class="w-full p-3 rounded-xl text-sm appearance-none">
-                    <option value="1.0" selected>Standardní AEG / GBB</option>
-                    <option value="1.2">DMR / Dlouhá hlaveň</option>
+                    <option value="1.0" selected>Standard AEG / GBB</option>
+                    <option value="1.2">DMR / Long Barrel</option>
                     <option value="1.4">Bolt-Action Sniper</option>
                 </select>
             </div>
 
             <div class="result-box p-6 rounded-2xl text-center mb-4">
-                <span class="label-text opacity-40 block mb-1">Energie</span>
+                <span class="label-text opacity-40 block mb-1">Muzzle Energy</span>
                 <span id="res-joules" class="result-value text-5xl tracking-tighter">0.00J</span>
             </div>
             
             <div class="grid grid-cols-2 gap-3">
                 <div class="bg-zinc-900 p-4 rounded-xl text-center border border-zinc-800">
                     <span id="res-max" class="result-value text-xl block">0m</span>
-                    <span class="label-text text-[8px]">Max Dostřel</span>
+                    <span class="label-text text-[8px]">Max Range</span>
                 </div>
                 <div class="bg-zinc-900 p-4 rounded-xl text-center border border-zinc-800">
                     <span id="res-eff" class="result-value text-xl text-zinc-400 block">0m</span>
-                    <span class="label-text text-[8px]">Efektivní</span>
+                    <span class="label-text text-[8px]">Effective</span>
                 </div>
             </div>
         </section>
 
         <section class="card p-6 rounded-2xl">
-            <h2 class="label-text mb-4 text-white">Limit Optimizer</h2>
-            <input type="text" id="target-j" placeholder="Limit v Joulech (např. 1.7)" class="w-full p-3 rounded-xl text-xl text-center mb-4">
+            <h2 class="label-text mb-4 text-white">Field Limit Optimizer</h2>
+            <input type="text" id="target-j" placeholder="Target Limit (e.g. 1.7)" class="w-full p-3 rounded-xl text-xl text-center mb-4">
             
             <div id="opt-box" class="hidden space-y-3">
                 <div class="bg-white text-black p-4 rounded-xl text-center shadow-lg">
-                    <p class="label-text text-zinc-400 mb-1 text-[9px]">Doporučená váha BB</p>
+                    <p class="label-text text-zinc-400 mb-1 text-[9px]">Recommended Weight</p>
                     <p id="rec-weight" class="result-value text-2xl">---</p>
                 </div>
                 <div class="bg-zinc-800 p-3 rounded-xl text-center border border-zinc-700">
                     <p id="target-fps" class="result-value text-sm text-white">---</p>
-                    <p class="label-text text-[8px]">Max FPS s touto váhou</p>
+                    <p class="label-text text-[8px]">Max FPS with this weight</p>
                 </div>
             </div>
         </section>
@@ -109,7 +110,7 @@
 
         <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=f10603007@gmail.com&item_name=MatiDev+Support&currency_code=USD" 
            target="_blank" class="block w-full bg-zinc-900 border border-zinc-800 p-4 rounded-2xl text-center hover:border-white transition-all">
-            <p class="text-xs font-bold text-white uppercase tracking-widest">Podpoř vývoj přes PayPal</p>
+            <p class="text-xs font-bold text-white uppercase tracking-widest">Support Development via PayPal</p>
             <p class="text-[9px] text-zinc-600 mt-1 uppercase">f10603007@gmail.com</p>
         </a>
 

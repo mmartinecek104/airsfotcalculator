@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     
-    <meta name="google-site-verification" content="VLOZ_SEM_TVUJ_KOD_Z_SEARCH_CONSOLE" />
+    <meta name="google-site-verification" content="VLOZ_SEM_TVUJ_KOD" />
 
-    <title>Airsoft Calculator | Joule, FPS & Range Optimizer - MatiDev</title>
-    <meta name="description" content="Professional Airsoft Calculator for precise FPS to Joules conversion and BB weight optimization. Created by MatiDev.">
+    <title>Airsoft Calculator | Joule & FPS Optimizer - MatiDev</title>
+    <meta name="description" content="Professional Airsoft Calculator. Convert FPS to Joules, optimize BB weight, and estimate range.">
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -23,9 +23,9 @@
 </head>
 <body class="p-4 min-h-screen flex flex-col items-center">
 
-    <header class="max-w-md w-full text-center py-10">
+    <header class="max-w-md w-full text-center py-8">
         <div class="mb-6 flex justify-center">
-            <div class="w-16 h-16 bg-white flex items-center justify-center rounded-2xl rotate-3">
+            <div class="w-16 h-16 bg-white flex items-center justify-center rounded-2xl rotate-3 shadow-xl">
                 <span class="text-black font-black text-2xl tracking-tighter">AC</span>
             </div>
         </div>
@@ -36,7 +36,7 @@
     <main class="max-w-md w-full space-y-4">
         
         <section class="card p-6 shadow-2xl border-l-4 border-white">
-            <h2 class="label-text mb-4 text-white italic underline">Chrono Station</h2>
+            <h2 class="label-text mb-5 text-white italic underline">Chrono Station</h2>
             <div class="grid grid-cols-2 gap-4 mb-5">
                 <div>
                     <label class="label-text block mb-1.5">Muzzle Velocity (FPS)</label>
@@ -48,38 +48,44 @@
                 </div>
             </div>
 
-            <div class="result-box p-8 text-center mb-6 italic">
-                <span id="res-joules" class="text-6xl font-black font-mono tracking-tighter leading-none">0.00J</span>
+            <div class="result-box p-8 text-center mb-4 italic">
+                <span id="res-joules" class="text-6xl font-black font-mono tracking-tighter">0.00J</span>
             </div>
             
             <div class="grid grid-cols-2 gap-3">
                 <div class="bg-zinc-900 p-4 rounded-xl text-center border border-zinc-800">
                     <span id="res-max" class="text-xl font-bold block font-mono">0m</span>
-                    <span class="label-text text-[8px]">Maximum Range</span>
+                    <span class="label-text text-[8px]">Max Range</span>
                 </div>
                 <div class="bg-zinc-900 p-4 rounded-xl text-center border border-zinc-800">
                     <span id="res-eff" class="text-xl font-bold text-zinc-400 block font-mono">0m</span>
-                    <span class="label-text text-[8px]">Effective Reach</span>
+                    <span class="label-text text-[8px]">Effective</span>
                 </div>
             </div>
         </section>
 
-        <section class="card p-6">
+        <section class="card p-6 rounded-3xl">
             <h2 class="label-text mb-4 text-white italic text-center">Field Limit Optimizer</h2>
-            <input type="number" id="target-j" placeholder="Target Joule Limit" class="w-full p-4 rounded-xl text-xl text-center">
-            <div id="opt-box" class="hidden mt-4 space-y-3">
+            <input type="number" id="target-j" placeholder="Field Joule Limit" class="w-full p-4 rounded-xl text-xl text-center mb-4">
+            
+            <div id="opt-box" class="hidden space-y-3">
                 <div class="bg-white text-black p-5 rounded-xl text-center">
+                    <p class="label-text text-zinc-400 mb-1 text-[9px]">Recommended Weight</p>
                     <p id="rec-weight" class="text-3xl font-black font-mono">---</p>
                 </div>
             </div>
         </section>
 
         <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=f10603007@gmail.com" 
-           target="_blank" class="block w-full bg-zinc-900 border border-zinc-800 p-5 rounded-2xl text-center text-white italic font-bold">
+           target="_blank" class="block w-full bg-zinc-900 border border-zinc-800 p-5 rounded-2xl text-center text-white italic font-bold uppercase text-xs tracking-widest">
             Support MatiDev Systems
         </a>
 
     </main>
+
+    <footer class="mt-12 text-center text-zinc-800 pb-20">
+        <p class="text-[9px] uppercase font-bold tracking-[0.3em]">© 2026 MATIDEV BALLISTICS</p>
+    </footer>
 
     <script>
         const fpsIn = document.getElementById('fps'), weightIn = document.getElementById('weight'), targetIn = document.getElementById('target-j');
@@ -88,17 +94,17 @@
         function calculate() {
             const f = parseFloat(fpsIn.value) || 0, w = parseFloat(weightIn.value) || 0;
             if (f > 0 && w > 0) {
-                const j = 0.5 * (w/1000) * (f * 0.3048)**2;
-                resJ.innerText = j.toFixed(2) + "J";
-                const d = Math.sqrt(j) * 44;
-                resM.innerText = Math.round(d) + "m";
-                resE.innerText = Math.round(d * 0.72) + "m";
+                const ms = f * 0.3048, joules = 0.5 * (w/1000) * (ms * ms);
+                resJ.innerText = joules.toFixed(2) + "J";
+                const dist = Math.sqrt(joules) * 44;
+                resM.innerText = Math.round(dist) + "m";
+                resE.innerText = Math.round(dist * 0.72) + "m";
                 
                 const limitJ = parseFloat(targetIn.value) || 0;
                 if (limitJ > 0) {
                     optBox.classList.remove('hidden');
                     let bw = "0.25g";
-                    if (limitJ >= 1.3) bw = "0.28g"; if (limitJ >= 1.7) bw = "0.32g"; if (limitJ >= 2.3) bw = "0.40g";
+                    if (limitJ >= 1.2) bw = "0.28g"; if (limitJ >= 1.6) bw = "0.32g"; if (limitJ >= 2.3) bw = "0.40g";
                     recW.innerText = bw;
                 }
             }

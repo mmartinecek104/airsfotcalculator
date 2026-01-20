@@ -3,49 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MatiDev Airsoft Calc | Joule & Ballistics Optimizer</title>
+    <title>MatiDev Airsoft Calc | Joule & Ballistics Tool</title>
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4337060753282933" crossorigin="anonymous"></script>
 
-    <meta name="description" content="Official MatiDev Airsoft Calculator. Calculate Joules, effective range, and optimize BB weight for elite performance.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+    <meta name="description" content="Calculate airsoft muzzle energy (Joules), convert FPS, and optimize BB weight for AEG, GBB, and Sniper builds. Professional ballistics tool by MatiDev.">
+    <meta name="keywords" content="MatiDev, Airsoft Calculator, Joule Calculator, FPS to Joules, BB Weight, Airsoft Tech">
     
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
         :root { --font-main: 'Inter', sans-serif; --font-mono: 'JetBrains Mono', monospace; }
         body { background-color: #000; color: #fff; font-family: var(--font-main); -webkit-font-smoothing: antialiased; }
-        .card { background-color: #0a0a0a; border: 1px solid #1f1f1f; }
-        input, select { background-color: #fff !important; color: #000 !important; border: 2px solid #333; font-family: var(--font-mono); font-weight: 700; }
-        .result-box { background-color: #fff; color: #000; }
-        .result-value { font-family: var(--font-mono); font-weight: 700; }
-        .label-text { color: #666; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 700; }
+        .card { background-color: #0a0a0a; border: 1px solid #1f1f1f; border-radius: 1.25rem; }
         
-        /* AD SLOT STYLING */
-        .ad-slot-wrapper { 
+        input, select { 
+            background-color: #fff !important; 
+            color: #000 !important; 
+            border: 2px solid #333; 
+            font-family: var(--font-mono); 
+            font-weight: 700; 
+            border-radius: 0.75rem;
+        }
+        
+        .result-box { background-color: #fff; color: #000; border-radius: 1rem; }
+        .result-value { font-family: var(--font-mono); font-weight: 700; }
+        .label-text { color: #555; font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 700; }
+        
+        /* Tactical Accents */
+        .accent-line { width: 40px; height: 4px; background-color: #fff; margin-bottom: 1.5rem; }
+        
+        .ad-container { 
             background: #050505; 
             border: 1px dashed #222; 
-            border-radius: 12px; 
             min-height: 90px; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
             overflow: hidden;
-            margin: 1.5rem 0;
-        }
-        .ad-slot-wrapper::after {
-            content: "ADVERTISEMENT";
-            position: absolute;
-            font-size: 8px;
-            color: #1a1a1a;
-            letter-spacing: 3px;
+            border-radius: 1rem;
         }
     </style>
 </head>
 <body class="p-4 min-h-screen flex flex-col items-center">
 
-    <div class="max-w-md w-full ad-slot-wrapper relative">
+    <div class="max-w-md w-full mb-6 ad-container">
         <ins class="adsbygoogle"
              style="display:block"
              data-ad-client="ca-pub-4337060753282933"
@@ -55,98 +58,103 @@
         <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
 
-    <header class="max-w-md w-full text-center py-4">
-        <h1 class="text-4xl font-black italic tracking-tighter uppercase leading-none text-white">MatiDev</h1>
-        <p class="text-[9px] text-zinc-500 tracking-[0.5em] mt-2 font-bold uppercase">Ballistics Division</p>
+    <header class="max-w-md w-full text-left py-6">
+        <div class="accent-line"></div>
+        <h1 class="text-5xl font-black italic tracking-tighter uppercase leading-none">MatiDev</h1>
+        <p class="text-[10px] text-zinc-600 tracking-[0.4em] mt-2 font-bold uppercase">Tactical Ballistics Unit</p>
     </header>
 
     <main class="max-w-md w-full space-y-4">
         
-        <section class="card p-6 rounded-2xl shadow-2xl border-l-4 border-white">
-            <h2 class="label-text mb-5 text-white">Chrono Station</h2>
-            <div class="grid grid-cols-2 gap-4 mb-5">
+        <section class="card p-6 shadow-2xl">
+            <h2 class="label-text mb-5 text-zinc-400 italic">Input Parameters</h2>
+            
+            <div class="grid grid-cols-2 gap-4 mb-6">
                 <div>
-                    <label class="label-text block mb-1.5">Muzzle FPS</label>
-                    <input type="text" id="fps" placeholder="0" class="w-full p-3 rounded-xl text-xl text-center">
+                    <label class="label-text block mb-1.5">Muzzle Velocity (FPS)</label>
+                    <input type="text" id="fps" placeholder="0" class="w-full p-4 text-2xl text-center focus:border-white outline-none">
                 </div>
                 <div>
-                    <label class="label-text block mb-1.5">BB Weight (g)</label>
-                    <input type="text" id="weight" placeholder="0.20" value="0.20" class="w-full p-3 rounded-xl text-xl text-center">
+                    <label class="label-text block mb-1.5">BB Weight (Grams)</label>
+                    <input type="text" id="weight" placeholder="0.20" value="0.20" class="w-full p-4 text-2xl text-center focus:border-white outline-none">
                 </div>
             </div>
 
-            <div class="mb-6">
-                <label class="label-text block mb-1.5">Weapon Platform</label>
-                <select id="gun-type" class="w-full p-3 rounded-xl text-sm cursor-pointer">
+            <div class="mb-8">
+                <label class="label-text block mb-1.5">Build Setup</label>
+                <select id="gun-type" class="w-full p-4 text-sm appearance-none cursor-pointer">
                     <option value="1.0" selected>Standard AEG / GBB</option>
-                    <option value="1.2">DMR / Long Barrel</option>
-                    <option value="1.4">Bolt-Action Sniper</option>
+                    <option value="1.2">DMR / Long Barrel (Tight Bore)</option>
+                    <option value="1.4">Bolt-Action Sniper (VSR/L96)</option>
                 </select>
             </div>
 
-            <div class="result-box p-6 rounded-2xl text-center mb-4">
-                <span class="label-text opacity-40 block mb-1">Measured Energy</span>
-                <span id="res-joules" class="result-value text-5xl tracking-tighter">0.00J</span>
+            <div class="result-box p-8 text-center mb-6 shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <span class="label-text opacity-50 block mb-1">Kinetic Energy Output</span>
+                <span id="res-joules" class="result-value text-6xl tracking-tighter">0.00J</span>
             </div>
             
             <div class="grid grid-cols-2 gap-3">
-                <div class="bg-zinc-900 p-4 rounded-xl text-center border border-zinc-800">
-                    <span id="res-max" class="result-value text-xl block">0m</span>
-                    <span class="label-text text-[8px]">Max Range</span>
+                <div class="bg-zinc-900/50 p-4 rounded-xl text-center border border-zinc-800">
+                    <span id="res-max" class="result-value text-2xl block text-white">0m</span>
+                    <span class="label-text text-[8px]">Estimated Range</span>
                 </div>
-                <div class="bg-zinc-900 p-4 rounded-xl text-center border border-zinc-800">
-                    <span id="res-eff" class="result-value text-xl text-zinc-400 block">0m</span>
-                    <span class="label-text text-[8px]">Effective</span>
+                <div class="bg-zinc-900/50 p-4 rounded-xl text-center border border-zinc-800">
+                    <span id="res-eff" class="result-value text-2xl text-zinc-500 block">0m</span>
+                    <span class="label-text text-[8px]">Effective Range</span>
                 </div>
             </div>
         </section>
 
-        <div class="max-w-md w-full ad-slot-wrapper relative min-h-[120px]">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-4337060753282933"
-                 data-ad-slot="default"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-        </div>
-
-        <section class="card p-6 rounded-2xl">
-            <h2 class="label-text mb-4 text-white">Field Limit Optimizer</h2>
-            <input type="text" id="target-j" placeholder="Target Joule Limit" class="w-full p-3 rounded-xl text-xl text-center mb-4">
+        <section class="card p-6 border border-zinc-900">
+            <h2 class="label-text mb-4 text-zinc-400">Field Limit Optimizer</h2>
+            <div class="relative">
+                <input type="text" id="target-j" placeholder="Set Joule Limit (e.g. 1.7)" class="w-full p-4 text-xl text-center mb-4">
+            </div>
             
-            <div id="opt-box" class="hidden space-y-3">
-                <div class="bg-white text-black p-4 rounded-xl text-center">
-                    <p class="label-text text-zinc-400 mb-1 text-[9px]">Best Stability Weight</p>
-                    <p id="rec-weight" class="result-value text-2xl">---</p>
+            <div id="opt-box" class="hidden space-y-3 animate-pulse">
+                <div class="bg-white text-black p-5 rounded-2xl text-center">
+                    <p class="label-text text-zinc-400 mb-1">Recommended BB Weight</p>
+                    <p id="rec-weight" class="result-value text-3xl">---</p>
                 </div>
-                <div class="bg-zinc-800 p-3 rounded-xl text-center border border-zinc-700">
-                    <p id="target-fps" class="result-value text-sm text-white uppercase">---</p>
-                    <p class="label-text text-[8px]">Max Velocity allowed</p>
+                <div class="bg-zinc-900 p-4 rounded-2xl text-center border border-zinc-800">
+                    <p id="target-fps" class="result-value text-lg text-white">---</p>
+                    <p class="label-text text-[8px] mt-1">Velocity limit for this weight</p>
                 </div>
             </div>
         </section>
 
-        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=f10603007@gmail.com&item_name=MatiDev+Support&currency_code=USD" 
-           target="_blank" 
-           class="block w-full bg-white text-black p-4 rounded-2xl text-center font-black uppercase text-sm hover:bg-zinc-200 transition-all">
-            Support Project via PayPal
-        </a>
-
-        <div class="max-w-md w-full ad-slot-wrapper relative min-h-[100px]">
+        <div class="max-w-md w-full ad-container min-h-[150px]">
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-4337060753282933"
                  data-ad-slot="default"
-                 data-ad-format="autorelaxed"
+                 data-ad-format="rectangle"
                  data-full-width-responsive="true"></ins>
             <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
+
+        <section class="p-6 text-[11px] text-zinc-600 leading-relaxed card border-zinc-900 bg-transparent">
+            <h3 class="label-text text-zinc-400 mb-2">Technical Information</h3>
+            <p class="mb-2">
+                This tool calculates airsoft ballistics based on the kinetic energy formula $E_k = \frac{1}{2}mv^2$. 
+                Where $m$ is the mass in kilograms and $v$ is velocity in meters per second ($1 \text{ FPS} = 0.3048 \text{ m/s}$).
+            </p>
+            <p>
+                Always measure your energy with the BB weight you intend to use in the game to account for "Joule Creep" in HPA or Gas systems.
+            </p>
+        </section>
+
+        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=f10603007@gmail.com&item_name=MatiDev+Support" 
+           target="_blank" 
+           class="block w-full bg-white text-black p-5 rounded-2xl text-center font-black uppercase text-xs tracking-widest hover:invert transition-all">
+            Donate via PayPal
+        </a>
 
     </main>
 
-    <footer class="mt-8 text-center text-zinc-800 pb-10">
-        <p class="text-[9px] uppercase font-bold tracking-[0.4em]">© 2026 MATIDEV SYSTEMS</p>
+    <footer class="mt-12 text-center text-zinc-800 pb-10">
+        <p class="text-[9px] uppercase font-bold tracking-[0.5em]">© 2026 MATIDEV SYSTEMS | VERSION 6.1</p>
     </footer>
 
     <script>
@@ -176,10 +184,10 @@
             if (limitJ <= 0) { optBox.classList.add('hidden'); return; }
             optBox.classList.remove('hidden');
             let bw = 0.25;
-            if (limitJ >= 1.2) bw = 0.28; if (limitJ >= 1.5) bw = 0.32; if (limitJ >= 2.0) bw = 0.40; if (limitJ >= 2.6) bw = 0.45;
+            if (limitJ >= 1.2) bw = 0.28; if (limitJ >= 1.5) bw = 0.32; if (limitJ >= 2.0) bw = 0.40; if (limitJ >= 2.6) bw = 0.45; if (limitJ >= 3.0) bw = 0.48;
             recW.innerText = bw.toFixed(2) + "g";
             const lFPS = Math.round(Math.sqrt((2 * limitJ) / (bw / 1000)) / 0.3048);
-            tFPS.innerText = lFPS + " FPS @ " + bw.toFixed(2) + "g";
+            tFPS.innerText = lFPS + " FPS";
         }
 
         [fpsIn, weightIn, gunIn, targetIn].forEach(el => el.addEventListener('input', calculate));

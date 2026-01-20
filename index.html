@@ -2,172 +2,164 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MatiDev Airsoft Calc | Joule & Ballistics Tool</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4337060753282933" crossorigin="anonymous"></script>
+    <title>Airsoft Calculator | Joule, FPS & Range Ballistics</title>
+    <meta name="description" content="Professional Airsoft Calculator for instant FPS to Joules conversion. Calculate muzzle energy, effective range, and optimize BB weight. Created by MatiDev.">
+    <meta name="keywords" content="Airsoft Calculator, Joule Calculator, FPS to Joules, BB Weight, Ballistics, Airsoft Tool">
+    <meta name="author" content="MatiDev">
 
-    <meta name="description" content="Professional Airsoft Joule Calculator by MatiDev. Calculate muzzle energy, FPS limits, and optimize BB weight for AEG and Sniper builds.">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Airsoft Calculator",
+      "description": "Convert FPS to Joules and calculate airsoft ballistics.",
+      "url": "https://matidev-calc.netlify.app/",
+      "applicationCategory": "Tool",
+      "operatingSystem": "All"
+    }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --font-main: 'Inter', sans-serif; --font-mono: 'JetBrains Mono', monospace; }
-        body { background-color: #000; color: #fff; font-family: var(--font-main); -webkit-font-smoothing: antialiased; }
-        .card { background-color: #0a0a0a; border: 1px solid #1f1f1f; border-radius: 1.25rem; }
-        input, select { background-color: #fff !important; color: #000 !important; border: 2px solid #333; font-family: var(--font-mono); font-weight: 700; border-radius: 0.75rem; }
-        .result-box { background-color: #fff; color: #000; border-radius: 1rem; }
-        .result-value { font-family: var(--font-mono); font-weight: 700; }
-        .label-text { color: #555; font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 700; }
+        :root { --accent: #fff; }
+        body { background-color: #000; color: #fff; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        .card { background-color: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 2.5rem; }
         
-        /* AD SLOTS - VISIBLE EVEN BEFORE APPROVAL */
-        .ad-zone { 
-            background: #050505; 
-            border: 1px dashed #222; 
-            min-height: 100px; 
+        input { 
+            background: #fff !important; 
+            color: #000 !important; 
+            font-family: 'JetBrains Mono'; 
+            font-weight: 700; 
+            border-radius: 1.25rem; 
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        input:focus { transform: translateY(-2px); outline: none; box-shadow: 0 10px 30px rgba(255,255,255,0.1); }
+
+        .res-box { 
+            background: #fff; 
+            color: #000; 
+            border-radius: 2rem; 
+            box-shadow: 0 0 40px rgba(255,255,255,0.05);
+        }
+
+        /* Příprava na bannery, pokud bys je přidal k Social Baru */
+        .ad-placeholder { 
+            width: 100%; 
+            min-height: 50px; 
             display: flex; 
             align-items: center; 
-            justify-content: center; 
-            border-radius: 1rem;
-            position: relative;
-            margin: 20px 0;
-        }
-        .ad-zone::after {
-            content: "ADVERTISEMENT SPACE";
-            color: #1a1a1a;
-            font-size: 9px;
-            letter-spacing: 4px;
+            justify-content: center;
+            opacity: 0.3;
+            font-size: 8px;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
         }
     </style>
 </head>
-<body class="p-4 min-h-screen flex flex-col items-center">
+<body class="p-6 flex flex-col items-center min-h-screen">
 
-    <div class="max-w-md w-full ad-zone">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-4337060753282933"
-             data-ad-slot="default"
-             data-ad-format="horizontal"
-             data-full-width-responsive="true"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-    </div>
-
-    <header class="max-w-md w-full text-center py-8">
-        <h1 class="text-5xl font-black italic tracking-tighter uppercase leading-none">MatiDev</h1>
-        <p class="text-[10px] text-zinc-600 tracking-[0.4em] mt-2 font-bold uppercase">Ballistics Division</p>
+    <header class="max-w-md w-full py-12 text-center">
+        <div class="mb-8 flex justify-center">
+            <div class="w-20 h-20 bg-white flex items-center justify-center rounded-[2rem] shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <span class="text-black font-black text-3xl tracking-tighter">AC</span>
+            </div>
+        </div>
+        <h1 class="text-5xl font-black italic uppercase tracking-tighter leading-tight">Airsoft Calculator</h1>
+        <p class="text-[9px] tracking-[0.5em] text-zinc-600 font-bold uppercase mt-4 italic">Advanced Ballistics by MatiDev</p>
     </header>
 
-    <main class="max-w-md w-full space-y-4">
+    <main class="max-w-md w-full space-y-6">
         
-        <section class="card p-6 shadow-2xl border-t-2 border-white">
-            <h2 class="label-text mb-5 text-zinc-400">Measurement Input</h2>
-            <div class="grid grid-cols-2 gap-4 mb-6">
-                <div>
-                    <label class="label-text block mb-1.5">Velocity (FPS)</label>
-                    <input type="text" id="fps" placeholder="0" class="w-full p-4 text-2xl text-center outline-none">
+        <section class="card p-8 md:p-10 shadow-2xl">
+            <div class="grid grid-cols-2 gap-6 mb-8">
+                <div class="space-y-2">
+                    <label class="text-[10px] uppercase font-black text-zinc-500 tracking-widest block ml-1">Velocity (FPS)</label>
+                    <input type="number" id="fps" placeholder="0" class="w-full p-5 text-3xl text-center">
                 </div>
-                <div>
-                    <label class="label-text block mb-1.5">BB Mass (Grams)</label>
-                    <input type="text" id="weight" placeholder="0.20" value="0.20" class="w-full p-4 text-2xl text-center outline-none">
+                <div class="space-y-2">
+                    <label class="text-[10px] uppercase font-black text-zinc-500 tracking-widest block ml-1">BB Mass (g)</label>
+                    <input type="number" id="weight" value="0.20" step="0.01" class="w-full p-5 text-3xl text-center">
                 </div>
             </div>
 
-            <div class="result-box p-8 text-center mb-6">
-                <span class="label-text opacity-50 block mb-1">Muzzle Energy</span>
-                <span id="res-joules" class="result-value text-6xl tracking-tighter">0.00J</span>
+            <div class="res-box p-12 text-center relative overflow-hidden mb-8">
+                <span class="text-[9px] font-black opacity-30 uppercase absolute top-5 left-0 right-0 tracking-[0.4em]">Energy (Joules)</span>
+                <span id="res-joules" class="text-7xl font-black font-mono tracking-tighter italic">0.00J</span>
             </div>
-            
-            <div class="grid grid-cols-2 gap-3">
-                <div class="bg-zinc-900 p-4 rounded-xl text-center border border-zinc-800">
-                    <span id="res-max" class="result-value text-2xl block text-white">0m</span>
-                    <span class="label-text text-[8px]">Max Distance</span>
-                </div>
-                <div class="bg-zinc-900 p-4 rounded-xl text-center border border-zinc-800">
-                    <span id="res-eff" class="result-value text-2xl text-zinc-500 block">0m</span>
-                    <span class="label-text text-[8px]">Effective</span>
-                </div>
-            </div>
-        </section>
 
-        <div class="max-w-md w-full ad-zone" style="min-height: 250px;">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-4337060753282933"
-                 data-ad-slot="default"
-                 data-ad-format="rectangle"
-                 data-full-width-responsive="true"></ins>
-            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-        </div>
-
-        <section class="card p-6">
-            <h2 class="label-text mb-4 text-zinc-400">Field Limit Optimizer</h2>
-            <input type="text" id="target-j" placeholder="Joule Limit (e.g. 1.7)" class="w-full p-4 text-xl text-center mb-4">
-            <div id="opt-box" class="hidden space-y-3">
-                <div class="bg-white text-black p-5 rounded-2xl text-center">
-                    <p class="label-text text-zinc-400 mb-1">Recommended BB Weight</p>
-                    <p id="rec-weight" class="result-value text-3xl">---</p>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="bg-zinc-950 p-6 rounded-[1.5rem] text-center border border-zinc-900">
+                    <span id="res-max" class="text-2xl font-bold block mb-1">0m</span>
+                    <span class="text-[8px] text-zinc-600 uppercase font-black tracking-widest">Max Range</span>
+                </div>
+                <div class="bg-zinc-950 p-6 rounded-[1.5rem] text-center border border-zinc-800">
+                    <span id="res-eff" class="text-2xl font-bold block text-zinc-400 mb-1">0m</span>
+                    <span class="text-[8px] text-zinc-600 uppercase font-black tracking-widest">Effective</span>
                 </div>
             </div>
         </section>
 
-        <section class="card p-8 text-[11px] text-zinc-500 leading-relaxed border-zinc-900">
-            <h3 class="label-text text-white mb-4">Understanding Airsoft Ballistics</h3>
+        <article class="card p-8 border-zinc-900 bg-transparent text-zinc-500 text-[11px] leading-relaxed">
+            <h2 class="text-white font-black mb-4 uppercase tracking-widest italic">Why use this Airsoft Calculator?</h2>
             <p class="mb-4">
-                Airsoft performance is dictated by kinetic energy, measured in Joules. The formula for calculation is $E_k = \frac{1}{2}mv^2$. 
-                MatiDev Calc provides an accurate conversion between FPS (feet per second) and Joules based on the weight of the BB.
-            </p>
-            <p class="mb-4">
-                <strong>Why Joules matter:</strong> Velocity alone doesn't tell the whole story. A heavier BB at the same FPS carries significantly more energy, which is why most professional airsoft fields use Joule limits for safety.
+                Understanding your **Airsoft Joule** output is critical for both safety and peak performance. Many fields now enforce strict Joule limits rather than FPS to prevent "Joule Creep". Our **Airsoft Calculator** provides a professional way to measure your muzzle energy accurately.
             </p>
             <p>
-                <strong>Effective Range:</strong> Our algorithm estimates effective range based on energy output and standard hop-up performance across various platforms like AEG, GBB, and Sniper systems.
+                Simply input your muzzle velocity in **FPS** and your **BB weight** (from 0.12g to 0.48g+) to get an instant reading of your kinetic energy. Optimized for airsoft technicians and players alike.
             </p>
-        </section>
+        </article>
 
-        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=f10603007@gmail.com&item_name=MatiDev+Support" 
-           target="_blank" 
-           class="block w-full bg-white text-black p-5 rounded-2xl text-center font-black uppercase text-xs tracking-widest hover:bg-zinc-200 transition-all">
-            Support via PayPal
+        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=f10603007@gmail.com" 
+           target="_blank"
+           class="block w-full bg-white text-black p-6 rounded-[1.5rem] text-center font-black uppercase text-xs tracking-[0.4em] hover:bg-zinc-200 transition-colors">
+            Support MatiDev
         </a>
+
+        <div class="ad-placeholder uppercase">Advertisement</div>
 
     </main>
 
-    <footer class="max-w-md w-full mt-12 mb-10 text-center border-t border-zinc-900 pt-8">
-        <div class="flex justify-center gap-6 mb-6">
-            <button onclick="alert('Privacy Policy: MatiDev Calc does not store personal data.')" class="label-text hover:text-white transition-colors">Privacy Policy</button>
-            <a href="mailto:f10603007@gmail.com" class="label-text hover:text-white transition-colors">Contact</a>
-        </div>
-        <p class="text-[9px] uppercase font-bold tracking-[0.5em] text-zinc-800">© 2026 MATIDEV SYSTEMS | V6.5</p>
+    <footer class="mt-20 pb-20 text-center">
+        <p class="text-[9px] uppercase font-bold tracking-[1em] text-zinc-800">MatiDev Systems v8.5</p>
     </footer>
 
     <script>
-        const fpsIn = document.getElementById('fps'), weightIn = document.getElementById('weight'), targetIn = document.getElementById('target-j');
-        const resJ = document.getElementById('res-joules'), resM = document.getElementById('res-max'), resE = document.getElementById('res-eff'), optBox = document.getElementById('opt-box'), recW = document.getElementById('rec-weight');
-
-        function cleanVal(v) { return parseFloat(v.toString().replace(',', '.')) || 0; }
+        const fpsIn = document.getElementById('fps'), 
+              weightIn = document.getElementById('weight'), 
+              resJ = document.getElementById('res-joules'), 
+              resM = document.getElementById('res-max'), 
+              resE = document.getElementById('res-eff');
 
         function calculate() {
-            const fps = cleanVal(fpsIn.value), grams = cleanVal(weightIn.value);
+            const fps = parseFloat(fpsIn.value) || 0;
+            const grams = parseFloat(weightIn.value) || 0;
+            
             if (fps > 0 && grams > 0) {
-                const ms = fps * 0.3048, joules = 0.5 * (grams/1000) * (ms * ms);
+                const velocityMS = fps * 0.3048;
+                const joules = 0.5 * (grams / 1000) * Math.pow(velocityMS, 2);
+                
                 resJ.innerText = joules.toFixed(2) + "J";
-                const dist = Math.sqrt(joules) * 45;
-                resM.innerText = Math.round(dist) + "m";
-                resE.innerText = Math.round(dist * 0.75) + "m";
-                optimize();
+                
+                const range = Math.sqrt(joules) * 44;
+                resM.innerText = Math.round(range) + "m";
+                resE.innerText = Math.round(range * 0.72) + "m";
+                
+                if (window.navigator.vibrate) window.navigator.vibrate(5);
+            } else {
+                resJ.innerText = "0.00J";
+                resM.innerText = "0m";
+                resE.innerText = "0m";
             }
         }
 
-        function optimize() {
-            const limitJ = cleanVal(targetIn.value);
-            if (limitJ <= 0) { optBox.classList.add('hidden'); return; }
-            optBox.classList.remove('hidden');
-            let bw = 0.25;
-            if (limitJ >= 1.2) bw = 0.28; if (limitJ >= 1.5) bw = 0.32; if (limitJ >= 2.0) bw = 0.40; if (limitJ >= 2.6) bw = 0.45;
-            recW.innerText = bw.toFixed(2) + "g";
-        }
-
-        [fpsIn, weightIn, targetIn].forEach(el => el.addEventListener('input', calculate));
+        [fpsIn, weightIn].forEach(input => {
+            input.addEventListener('input', calculate);
+        });
     </script>
-</body>
+
+    </body>
 </html>
